@@ -9,16 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
+require('rxjs/add/operator/map');
 var HumanService = (function () {
-    function HumanService() {
+    function HumanService(http) {
+        this.http = http;
     }
+    ;
     HumanService.prototype.addHuman = function (human) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post("/api/human", human, { headers: headers })
+            .map(function (response) { return response.json(); });
         console.log('in human service');
         console.log(human);
     };
     HumanService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], HumanService);
     return HumanService;
 }());
