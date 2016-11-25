@@ -1,0 +1,10 @@
+<div class="container">
+  {{name}}
+  <hr>
+  <h3>Enter a name</h3>
+  <input type="text" name="name" [(ngModel)]="name" />
+  <h3>Enter an age</h3>
+  <input type="number" name="age" [(ngModel)]="age" />
+  <br>
+  <button (click)="addHuman()">Add a Human</button>
+</div>
