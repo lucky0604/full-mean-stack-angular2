@@ -11,8 +11,24 @@ import {HumanService} from './app.service';
 export class HumanComponent {
   name: string;
   age: number;
+  humans: Array<any>;
+  specificHumanName: string;
+  specificHumanAge: number;
 
-  constructor(private humanService: HumanService) {};
+  constructor(private humanService: HumanService) {
+    humanService.getHumans().subscribe(response => {
+      this.humans = response;
+    })
+  };
+
+  viewHuman(id) {
+    this.humanService.viewHuman(id).subscribe(data => {
+      this.specificHumanName = data.name;
+      this.specificHumanAge = data.age;
+    })
+  }
+
+
 
   addHuman() {
     var human = {
@@ -20,5 +36,15 @@ export class HumanComponent {
       age: this.age
     }
     this.humanService.addHuman(human)
+      .subscribe(data => {
+        this.humans.push(human);
+      })
+  }
+
+  removeHuman(id) {
+    this.humanService.removeHuman(id)
+      .subscribe(data => {
+        console.log('Success deleting' + data);
+      })
   }
 }

@@ -8,3 +8,17 @@
   <br>
   <button (click)="addHuman()">Add a Human</button>
 </div>
+
+<div class="humans">
+  <li *ngFor="let human of humans">{{human.name}} . {{human.age}}
+    <button (click)="removeHuman(human._id)">Delete human</button>
+    <button (click)="viewHuman(human._id)">View human</button>
+  </li>
+
+</div>
+
+<div class="specific">
+  {{specificHumanAge}}
+  <br>
+  {{specificHumanName}}
+</div>

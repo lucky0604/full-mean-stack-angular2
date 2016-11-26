@@ -12,15 +12,36 @@ var core_1 = require('@angular/core');
 var app_service_1 = require('./app.service');
 var HumanComponent = (function () {
     function HumanComponent(humanService) {
+        var _this = this;
         this.humanService = humanService;
+        humanService.getHumans().subscribe(function (response) {
+            _this.humans = response;
+        });
     }
     ;
+    HumanComponent.prototype.viewHuman = function (id) {
+        var _this = this;
+        this.humanService.viewHuman(id).subscribe(function (data) {
+            _this.specificHumanName = data.name;
+            _this.specificHumanAge = data.age;
+        });
+    };
     HumanComponent.prototype.addHuman = function () {
+        var _this = this;
         var human = {
             name: this.name,
             age: this.age
         };
-        this.humanService.addHuman(human);
+        this.humanService.addHuman(human)
+            .subscribe(function (data) {
+            _this.humans.push(human);
+        });
+    };
+    HumanComponent.prototype.removeHuman = function (id) {
+        this.humanService.removeHuman(id)
+            .subscribe(function (data) {
+            console.log('Success deleting' + data);
+        });
     };
     HumanComponent = __decorate([
         core_1.Component({

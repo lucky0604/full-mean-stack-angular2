@@ -16,13 +16,21 @@ var HumanService = (function () {
         this.http = http;
     }
     ;
+    // get human
+    HumanService.prototype.getHumans = function () {
+        return this.http.get('/api/human').map(function (response) { return response.json(); });
+    };
     HumanService.prototype.addHuman = function (human) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post("/api/human", human, { headers: headers })
+        return this.http.post("/api/human", JSON.stringify(human), { headers: headers })
             .map(function (response) { return response.json(); });
-        console.log('in human service');
-        console.log(human);
+    };
+    HumanService.prototype.viewHuman = function (id) {
+        return this.http.get('/api/humans/' + id).map(function (response) { return response.json(); });
+    };
+    HumanService.prototype.removeHuman = function (id) {
+        return this.http.delete('/api/humans/' + id).map(function (response) { return response.json(); });
     };
     HumanService = __decorate([
         core_1.Injectable(), 

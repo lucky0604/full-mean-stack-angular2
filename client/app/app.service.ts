@@ -6,14 +6,25 @@ import 'rxjs/add/operator/map';
 export class HumanService {
   constructor(private http: Http) {};
 
+  // get human
+  getHumans() {
+    return this.http.get('/api/human').map(response => response.json());
+  }
+
+
   addHuman(human) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.post("/api/human", human, {headers: headers})
+    return this.http.post("/api/human", JSON.stringify(human), {headers: headers})
     .map(response => response.json());
+  }
 
-    console.log('in human service');
-    console.log(human);
+  viewHuman(id) {
+    return this.http.get('/api/humans/' + id).map(response => response.json());
+  }
+
+  removeHuman(id) {
+    return this.http.delete('/api/humans/' + id).map(response => response.json());
   }
 }
