@@ -1,3 +1,5 @@
+/*
+
 var express = require('express');
 var router = express.Router();
 var Model = require('../models/model.js');
@@ -47,3 +49,4 @@ router.delete('/humans/:id', function(request, response) {
 })
 
 module.exports = router;
+*/

@@ -8,3 +8,12 @@ router.get('/', function(request, res) {
 
 module.exports = router;
 */
+module.exports = function(app) {
+    app.get('/', function(req, res) {
+        res.render('index.html');
+    })
+    app.use('/signup', require('./signup'));
+    app.use('/signin', require('./signin'));
+    app.use('/signout', require('./signout'));
+    app.use('/posts', require('./posts'));
+}
