@@ -1,3 +1,8 @@
+/**
+ * this code block use mongolass
+ */
+
+
 var User = require('../lib/mongo').User;
 
 module.exports = {
@@ -6,3 +11,23 @@ module.exports = {
     return User.create(user).exec();
   }
 }
+
+
+// ------------------------------------------------------------------
+
+/**
+ * change it into mongoose
+ */
+
+/*
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var UserSchema = new Schema({
+  name: String,
+  password: String
+})
+
+var User = mongoose.model('User', UserSchema);
+
+module.exports = User;
+*/

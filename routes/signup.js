@@ -4,15 +4,15 @@ var express = require('express');
 var router = express.Router();
 
 var UserModel = require('../models/users');
-var checkNotLogin = require('../middlewares/check').checkNotLogin;
+// var checkNotLogin = require('../middlewares/check').checkNotLogin;
 
 // GET /signup 注册页面
-router.get('/', checkNotLogin, function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('signup.html');
 })
 
 // POST /signup 用户注册
-router.post('/', checkNotLogin, function(req, res, next) {
+router.post('/', function(req, res, next) {
   var name = req.body.name;
   // var gender = req.fields.gender;
   // var bio = req.fields.bio;
@@ -32,6 +32,18 @@ router.post('/', checkNotLogin, function(req, res, next) {
     // avatar: avatar
   };
 
+/* mongoose
+  var result = new User(user);
+  result.save(function(err, msg) {
+    if (err) {
+      res.send(err).status(501);
+      next(err);
+    }else {
+      res.json(msg).status(201);
+    }
+  }) 
+*/
+
   // 用户信息写入数据库
   UserModel.create(user)
     .then(function(result) {
@@ -49,6 +61,8 @@ router.post('/', checkNotLogin, function(req, res, next) {
         req.flash('error', '用户名已被占用');
         return res.redirect('/signup');
       }
+      next(e);
+      console.log(e);
     })
 })
 

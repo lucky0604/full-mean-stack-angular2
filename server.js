@@ -62,6 +62,7 @@ app.use(express.static(__dirname + '/client'));
 app.engine('html', require('ejs').renderFile);
 
 //session middleware
+
 app.use(session({
     name: config.session.key,   // 设置cookie中保存session id的字段
     secret: config.session.secret,  // 通过设置secret来计算hash值并放在cookie中，　使产生的signedCookie防篡改
@@ -73,9 +74,11 @@ app.use(session({
     })
 }));
 
+
 // flash middleware, show the notification
 app.use(flash());
 
+/*
 // 处理表单及文件上传的中间件
 app.use(require('express-formidable')({
     uploadDir: path.join(__dirname, 'client/img'),  // 上传文件目录
@@ -87,6 +90,7 @@ app.locals.blog = {
     title: pkg.name,
     description: pkg.description
 }
+*/
 
 // 添加模板必要的三个变量
 app.use(function(req, res, next) {
@@ -95,6 +99,7 @@ app.use(function(req, res, next) {
     res.locals.error = req.flash('error').toString();
     next();
 })
+
 
 // routes
 routes(app);
