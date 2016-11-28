@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/', mainRouter);
 app.use('/api', apiRouter);
+app.use('/api/users', userRouter);
 
 mongoose.connect(DB, function(err) {
     if (err) {
